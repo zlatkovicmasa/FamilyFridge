@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Meal Planner - Početna Stranica</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Family Fridge</h1>
+
+    <div class="mb-3">
+        <h2>Pregled Plana Obroka</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Datum</th>
+                <th scope="col">Vreme</th>
+                <th scope="col">Obrok</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mealPlan : ${mealPlans}">
+                <td th:text="${mealPlan.date}">2024-07-20</td>
+                <td th:text="${mealPlan.timeOfDay.name}">Doručak</td>
+                <td th:text="${mealPlan.meal.name}">Jaja na oko</td>
+                <td>
+                    <a th:href="@{/meal-plans/edit/{id}(id=${mealPlan.id})}" class="btn btn-primary btn-sm">Uredi</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-4">
+        <a href="/meal-plans/add" class="btn btn-success">Dodaj Obrok</a>
+    </div>
+
+    <div>
+        <a href="/inventory" class="btn btn-info">Pregled Inventara</a>
+    </div>
+</div>
+</body>
+</html>

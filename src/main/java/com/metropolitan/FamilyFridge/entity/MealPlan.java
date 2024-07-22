@@ -2,6 +2,8 @@ package com.metropolitan.FamilyFridge.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "meal_plans", schema = "family_fridge")
 public class MealPlan {
@@ -14,13 +16,16 @@ public class MealPlan {
     @JoinColumn(name="meal_id")
     private Meal meal;
 
-    private String dayOfWeek;
-    private String timeOfDay;
+    private Date date;
+
+    @ManyToOne
+    @JoinColumn(name="time_of_day")
+    private TimeOfDay timeOfDay;
 
     public MealPlan(){}
-    public MealPlan(Meal meal, String dayOfWeek, String timeOfDay) {
+    public MealPlan(Meal meal, Date date, TimeOfDay timeOfDay) {
         this.meal = meal;
-        this.dayOfWeek = dayOfWeek;
+        this.date = date;
         this.timeOfDay = timeOfDay;
     }
 
@@ -28,8 +33,8 @@ public class MealPlan {
     public void setId(Long id) {this.id = id;}
     public Meal getMeal() {return meal;}
     public void setMeal(Meal meal) {this.meal = meal;}
-    public String getDayOfWeek() {return dayOfWeek;}
-    public void setDayOfWeek(String dayOfWeek) {this.dayOfWeek = dayOfWeek;}
-    public String getTimeOfDay() {return timeOfDay;}
-    public void setTimeOfDay(String timeOfDay) {this.timeOfDay = timeOfDay;}
+    public Date getDate() {return date;}
+    public void setDate(Date date) {this.date = date;}
+    public TimeOfDay getTimeOfDay() {return timeOfDay;}
+    public void setTimeOfDay(TimeOfDay timeOfDay) {this.timeOfDay = timeOfDay;}
 }
