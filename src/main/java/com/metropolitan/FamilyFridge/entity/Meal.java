@@ -2,6 +2,9 @@ package com.metropolitan.FamilyFridge.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "meals", schema = "family_fridge")
 public class Meal {
@@ -11,20 +14,18 @@ public class Meal {
     private Long id;
 
     private String name;
-    private String description;
-    private String recipe;
+    private Boolean approved;
 
     @ManyToOne
     @JoinColumn(name="suggested_by")
     private User suggestedBy;
 
-    private Boolean approved;
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MealIngredient> mealIngredients;
 
     public Meal(){}
-    public Meal(String name, String description, String recipe, User suggestedBy, Boolean approved) {
+    public Meal(String name, User suggestedBy, Boolean approved) {
         this.name = name;
-        this.description = description;
-        this.recipe = recipe;
         this.suggestedBy = suggestedBy;
         this.approved = approved;
     }
@@ -33,12 +34,10 @@ public class Meal {
     public void setId(Long id) {this.id = id;}
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
-    public String getRecipe() {return recipe;}
-    public void setRecipe(String recipe) {this.recipe = recipe;}
     public User getSuggestedBy() {return suggestedBy;}
     public void setSuggestedBy(User suggestedBy) {this.suggestedBy = suggestedBy;}
     public Boolean getApproved() {return approved;}
     public void setApproved(Boolean approved) {this.approved = approved;}
+    public List<MealIngredient> getMealIngredients() {return mealIngredients;}
+    public void setMealIngredients(List<MealIngredient> mealIngredients) {this.mealIngredients = mealIngredients;}
 }
