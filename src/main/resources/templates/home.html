@@ -3,44 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Meal Planner - Početna Stranica</title>
+    <title>Family Fridge - Početna Stranica</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="mb-4">Family Fridge</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <a class="navbar-brand" href="/home">Family Fridge</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/meals">Obroci</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inventory">Fridge</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/family">Porodica</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <header>
+            <nav>
+                <a th:href="@{/home(date=${date.toLocalDate().minusDays(1)})}">&larr; Prethodni dan</a>
+                |
+                <a th:href="@{/home(date=${date.toLocalDate().plusDays(1)})}">Sledeći dan &rarr;</a>
+            </nav>
+        </header>
+        <h1>Plan obroka za <span th:text="${#dates.format(date, 'dd-MM-yyyy')}">Datum</span></h1>
 
-    <div class="mb-3">
-        <h2>Pregled Plana Obroka</h2>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Datum</th>
-                <th scope="col">Vreme</th>
-                <th scope="col">Obrok</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="mealPlan : ${mealPlans}">
-                <td th:text="${mealPlan.date}">2024-07-20</td>
-                <td th:text="${mealPlan.timeOfDay.name}">Doručak</td>
-                <td th:text="${mealPlan.meal.name}">Jaja na oko</td>
-                <td>
-                    <a th:href="@{/meal-plans/edit/{id}(id=${mealPlan.id})}" class="btn btn-primary btn-sm">Uredi</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="container mt-4">
+            <h3 class="mb-3">Doručak</h3>
 
-    <div class="mb-4">
-        <a href="/meal-plans/add" class="btn btn-success">Dodaj Obrok</a>
-    </div>
+            <p th:if="${!mealPlans.containsKey('doručak') || mealPlans['doručak'].isEmpty()}"
+               class="alert alert-info" th:text="'Nije dodat obrok'">Nije dodat obrok</p>
 
-    <div>
-        <a href="/inventory" class="btn btn-info">Pregled Inventara</a>
-    </div>
+            <div th:if="${mealPlans.containsKey('doručak') && !mealPlans['doručak'].isEmpty()}"
+                 class="mb-4">
+                <div th:each="mealPlan : ${mealPlans['doručak']}" class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary">Dodaj obrok</button>
+        </div>
+
+        <div class="container mt-4">
+            <h3 class="mb-3">Ručak</h3>
+
+            <p th:if="${!mealPlans.containsKey('ručak') || mealPlans['ručak'].isEmpty()}"
+               class="alert alert-info" th:text="'Nije dodat obrok'">Nije dodat obrok</p>
+
+            <div th:if="${mealPlans.containsKey('ručak') && !mealPlans['ručak'].isEmpty()}"
+                 class="mb-4">
+                <div th:each="mealPlan : ${mealPlans['ručak']}" class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary">Dodaj obrok</button>
+        </div>
+
+        <div class="container mt-4">
+            <h3 class="mb-3">Užina</h3>
+
+            <p th:if="${!mealPlans.containsKey('užina') || mealPlans['užina'].isEmpty()}"
+               class="alert alert-info" th:text="'Nije dodat obrok'">Nije dodat obrok</p>
+
+            <div th:if="${mealPlans.containsKey('užina') && !mealPlans['užina'].isEmpty()}"
+                 class="mb-4">
+                <div th:each="mealPlan : ${mealPlans['užina']}" class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary">Dodaj obrok</button>
+        </div>
+
+        <div class="container mt-4">
+            <h3 class="mb-3">Večera</h3>
+
+            <p th:if="${!mealPlans.containsKey('večera') || mealPlans['večera'].isEmpty()}"
+               class="alert alert-info" th:text="'Nije dodat obrok'">Nije dodat obrok</p>
+
+            <div th:if="${mealPlans.containsKey('večera') && !mealPlans['večera'].isEmpty()}"
+                 class="mb-4">
+                <div th:each="mealPlan : ${mealPlans['večera']}" class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary">Dodaj obrok</button>
+        </div>
+    </main>
 </div>
 </body>
 </html>
