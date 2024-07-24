@@ -40,4 +40,7 @@ public class Meal {
     public void setApproved(Boolean approved) {this.approved = approved;}
     public List<MealIngredient> getMealIngredients() {return mealIngredients;}
     public void setMealIngredients(List<MealIngredient> mealIngredients) {this.mealIngredients = mealIngredients;}
+    public void addMealIngredient(MealIngredient mealIngredient) {
+        mealIngredients.add(mealIngredient);
+    }
 }

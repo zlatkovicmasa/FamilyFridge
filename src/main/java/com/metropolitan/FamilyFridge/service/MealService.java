@@ -23,14 +23,11 @@ public class MealService {
         return mealRepository.findAll();
     }
 
-    public void addMeal(Meal meal) {
-        mealRepository.save(meal);
+    public Meal getMealById(Long id) {
+        return mealRepository.findById(id).orElse(null);
     }
 
-    public void addIngredientToMeal(Long mealId, Grocery grocery, double quantity) {
-        Meal meal = mealRepository.findById(mealId).orElseThrow();
-        MealIngredient mealIngredient = new MealIngredient(meal, grocery, quantity);
-        mealIngredientRepository.save(mealIngredient);
-
+    public void addMeal(Meal meal) {
+        mealRepository.save(meal);
     }
 }

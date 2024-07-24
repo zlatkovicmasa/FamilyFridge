@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj Obrok</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h4>Namirnice</h4>
+    <ul class="list-group">
+        <li th:each="ingredient, iterStat : ${meal.mealIngredients}" class="list-group-item d-flex justify-content-between align-items-center">
+            <span th:text="${ingredient.grocery.name}">Namirnica</span>
+            <span class="badge badge-primary" th:text="${ingredient.quantity}">Količina</span>
+            <form th:action="@{/meals/removeIngredient}" method="post" class="d-inline">
+                <input type="hidden" name="ingredientIndex" th:value="${iterStat.index}">
+                <button type="submit" class="btn btn-danger btn-sm mt-2">Ukloni</button>
+            </form>
+        </li>
+    </ul>
+    <form th:action="@{/meals/addIngredient}" method="post" th:object="${meal}">
+        <div id="ingredients-container" class="mb-3">
+            <div class="form-group ingredient-item">
+                <label for="grocery">Namirnica:</label>
+                <select id="grocery" name="grocery" class="form-control" required>
+                    <option th:each="grocery : ${groceries}" th:value="${grocery.id}" th:text="${grocery.name}"></option>
+                </select>
+                <label for="quantity">Količina:</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" required/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj namirnicu</button>
+    </form>
+
+    <form th:action="@{/meals/addMeal}" method="post" th:object="${meal}">
+
+        <div class="form-group">
+            <label for="name">Naziv obroka:</label>
+            <input type="text" id="name" name="name" class="form-control" th:value="${meal.name}" required>
+        </div>
+        <button th:if="${meal.id == null}" type="submit" class="btn btn-primary">Dodaj obrok</button>
+        <button th:if="${meal.id != null}" type="submit" class="btn btn-primary">Sačuvaj izmene</button>
+
+    </form>
+</div>
+</body>
+</html>

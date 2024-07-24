@@ -1,146 +1,16 @@
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>Obroci</title>&ndash;&gt;-->
-<!--&lt;!&ndash;    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="container mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;    <h1 class="mb-4">Lista Obroka</h1>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    &lt;!&ndash; Forma za dodavanje novog obroka &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <form th:action="@{/meals/add}" method="post" class="mb-4">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="name">Naziv obroka:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="text" id="name" name="name" class="form-control" required>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;            <label for="description">Opis obroka:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;            <textarea id="description" name="description" class="form-control" required></textarea>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        <button type="submit" class="btn btn-primary">Dodaj obrok</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </form>&ndash;&gt;-->
-
-<!--&lt;!&ndash;    &lt;!&ndash; Lista obroka &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <div th:if="${not #lists.isEmpty(meals)}">&ndash;&gt;-->
-<!--&lt;!&ndash;        <ul class="list-group">&ndash;&gt;-->
-<!--&lt;!&ndash;            <li th:each="meal : ${meals}" class="list-group-item d-flex justify-content-between align-items-center">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <h5 th:text="${meal.name}">Naziv obroka</h5>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <p th:text="${meal.description}">Opis obroka</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <button class="btn btn-warning btn-sm">Izmeni</button>&ndash;&gt;-->
-<!--&lt;!&ndash;            </li>&ndash;&gt;-->
-<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <div th:if="${#lists.isEmpty(meals)}" class="alert alert-info">&ndash;&gt;-->
-<!--&lt;!&ndash;        Nema obroka na listi.&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Obroci</title>-->
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="container mt-4">-->
-<!--    <h1 class="mb-4">Lista Obroka</h1>-->
-
-<!--    &lt;!&ndash; Forma za dodavanje novog obroka &ndash;&gt;-->
-<!--    <form th:action="@{/meals/add}" method="post" class="mb-4">-->
-<!--        <div class="form-group">-->
-<!--            <label for="name">Naziv obroka:</label>-->
-<!--            <input type="text" id="name" name="name" class="form-control" required>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Sekcija za dodavanje namirnica &ndash;&gt;-->
-<!--        <div id="ingredients-container">-->
-<!--            <div th:each="ingredient, iter : ${meal.mealIngredients}" class="form-group">-->
-<!--                <label for="grocery-${iter.index}">Namirnica:</label>-->
-<!--                <select id="grocery-${iter.index}" name="ingredients[${iter.index}].grocery" class="form-control" required>-->
-<!--                    <option th:each="grocery : ${groceries}" th:value="${grocery.id}" th:text="${grocery.name}"></option>-->
-<!--                </select>-->
-<!--                <label for="quantity-${iter.index}">Količina:</label>-->
-<!--                <input type="number" id="quantity-${iter.index}" name="ingredients[${iter.index}].quantity" class="form-control" th:value="${ingredient.quantity}" required>-->
-<!--                <button type="button" class="btn btn-danger mt-2" th:if="${#lists.size(meal.mealIngredients) > 1}" th:onclick="'removeIngredient(' + ${iter.index} + ')'">Ukloni</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <button type="button" class="btn btn-secondary" onclick="addIngredient()">Dodaj namirnicu</button>-->
-<!--        <button type="submit" class="btn btn-primary">Dodaj obrok</button>-->
-<!--    </form>-->
-
-
-
-<!--</div>-->
-
-<!--<script>-->
-<!--    function addIngredient() {-->
-<!--        const container = document.getElementById('ingredients-container');-->
-<!--        const index = container.children.length;-->
-<!--        const html = `-->
-<!--            <div class="form-group">-->
-<!--                <label for="grocery-${index}">Namirnica:</label>-->
-<!--                <select id="grocery-${index}" name="ingredients[${index}].grocery" class="form-control" required>-->
-<!--                    <option th:each="grocery : ${groceries}" th:value="${grocery.id}" th:text="${grocery.name}"></option>-->
-<!--                </select>-->
-<!--                <label for="quantity-${index}">Količina:</label>-->
-<!--                <input type="number" id="quantity-${index}" name="ingredients[${index}].quantity" class="form-control" required>-->
-<!--                <button type="button" class="btn btn-danger mt-2" onclick="removeIngredient(${index})">Ukloni</button>-->
-<!--            </div>-->
-<!--        `;-->
-<!--        container.insertAdjacentHTML('beforeend', html);-->
-<!--    }-->
-
-<!--    function removeIngredient(index) {-->
-<!--        const container = document.getElementById('ingredients-container');-->
-<!--        const element = document.getElementById(`grocery-${index}`).parentElement;-->
-<!--        container.removeChild(element);-->
-<!--    }-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj Obrok</title>
+    <title>Lista Obroka</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">Lista Obroka</h1>
-
-    <h3>Dodaj Obrok</h3>
-
-    <!-- Forma za dodavanje novog obroka -->
-    <form th:action="@{/meals/add}" method="post" th:object="${meal}">
-        <div class="form-group">
-            <label for="name">Naziv obroka:</label>
-            <input type="text" id="name" name="name" class="form-control" th:value="${meal.name}" required>
-        </div>
-
-        <h4>Namirnice</h4>
-        <div id="ingredients-container">
-            <div th:each="ingredient, iter : ${meal.mealIngredients}" class="form-group">
-                <label for="grocery-${iter.index}">Namirnica:</label>
-                <select id="grocery-${iter.index}" name="ingredients[${iter.index}].grocery" class="form-control" required>
-                    <option th:each="grocery : ${groceries}" th:value="${grocery.id}" th:text="${grocery.name}"></option>
-                </select>
-                <label for="quantity-${iter.index}">Količina:</label>
-                <input type="number" id="quantity-${iter.index}" name="ingredients[${iter.index}].quantity" class="form-control" th:value="${ingredient.quantity}" required>
-                <button type="button" class="btn btn-danger mt-2" th:if="${#lists.size(meal.mealIngredients) > 1}" th:onclick="'removeIngredient(' + ${iter.index} + ')'">Ukloni</button>
-            </div>
-        </div>
-        <button type="button" class="btn btn-secondary" onclick="addIngredient()">Dodaj namirnicu</button>
-        <button type="submit" class="btn btn-primary">Dodaj obrok</button>
-    </form>
+    <div class="mb-4">
+        <a th:href="@{/meals/add}" class="btn btn-primary">Dodaj Obrok</a>
+    </div>
 
     <!-- Lista obroka -->
     <div th:if="${not #lists.isEmpty(meals)}">
@@ -164,29 +34,6 @@
     </div>
 </div>
 
-<script>
-    function addIngredient() {
-        const container = document.getElementById('ingredients-container');
-        const index = container.children.length;
-        const html = `
-            <div class="form-group">
-                <label for="grocery-${index}">Namirnica:</label>
-                <select id="grocery-${index}" name="ingredients[${index}].grocery" class="form-control" required>
-                    <option th:each="grocery : ${groceries}" th:value="${grocery.id}" th:text="${grocery.name}"></option>
-                </select>
-                <label for="quantity-${index}">Količina:</label>
-                <input type="number" id="quantity-${index}" name="ingredients[${index}].quantity" class="form-control" required>
-                <button type="button" class="btn btn-danger mt-2" onclick="removeIngredient(${index})">Ukloni</button>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-    }
-
-    function removeIngredient(index) {
-        const container = document.getElementById('ingredients-container');
-        const element = document.getElementById(`grocery-${index}`).parentElement;
-        container.removeChild(element);
-    }
-</script>
+<!--<script type="text/javascript" th:src="@{/static/ingredients.js}" />-->
 </body>
 </html>
