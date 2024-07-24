@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,9 +24,13 @@ public class MealPlanService {
     }
 
     public Map<String, List<MealPlan>> getMealPlansByDate(Date date) {
+        List<MealPlan> mP = mealPlanRepository.findAll();
         List<MealPlan> mealPlans = mealPlanRepository.findAllByDate(date);
-        Map<String, List<MealPlan>> mealPlansByDate = mealPlans.stream().collect(Collectors.groupingBy(mealPlan -> mealPlan.getTimeOfDay().getName()));
-        return mealPlansByDate;
+        return mealPlans.stream().collect(Collectors.groupingBy(mealPlan -> mealPlan.getTimeOfDay().getName()));
+    }
+
+    public void save(MealPlan mealPlan) {
+        mealPlanRepository.save(mealPlan);
     }
 
 }

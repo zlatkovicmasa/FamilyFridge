@@ -1,8 +1,6 @@
 package com.metropolitan.FamilyFridge.service;
 
-import com.metropolitan.FamilyFridge.entity.Grocery;
 import com.metropolitan.FamilyFridge.entity.Meal;
-import com.metropolitan.FamilyFridge.entity.MealIngredient;
 import com.metropolitan.FamilyFridge.repository.MealIngredientRepository;
 import com.metropolitan.FamilyFridge.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class MealService {
         return mealRepository.findById(id).orElse(null);
     }
 
-    public void addMeal(Meal meal) {
+    public void save(Meal meal) {
         mealRepository.save(meal);
     }
 }

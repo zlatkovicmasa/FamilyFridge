@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">Lista Obroka</h1>
-    <div class="mb-4">
+    <div th:if="${mealPlan == null} "class="mb-4">
         <a th:href="@{/meals/add}" class="btn btn-primary">Dodaj Obrok</a>
     </div>
 
@@ -25,7 +25,13 @@
                         </li>
                     </ul>
                 </div>
-                <a th:href="@{/meals/edit/{id}(id=${meal.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                <a th:if="${mealPlan == null}" th:href="@{/meals/edit/{id}(id=${meal.id})}" class="btn btn-warning btn-sm">Izmeni</a>
+                <form th:if="${mealPlan != null}" th:action="@{/mealPlan/addMeal}" th:object="${mealPlan}" method="post" class="d-inline">
+                    <input type="hidden" name="mealId" th:value="${meal.id}"/>
+                    <input type="hidden" name="timeOfDayId" th:value="${mealPlan.timeOfDay.id}"/>
+                    <input type="hidden" name="date" th:value="${mealPlan.date}"/>
+                    <button type="submit" class="btn btn-danger btn-sm mt-2">Dodaj</button>
+                </form>
             </li>
         </ul>
     </div>

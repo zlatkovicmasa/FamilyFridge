@@ -19,7 +19,7 @@ public class MealPlan {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name="time_of_day")
+    @JoinColumn(name="time_of_day_id")
     private TimeOfDay timeOfDay;
 
     public MealPlan(){}

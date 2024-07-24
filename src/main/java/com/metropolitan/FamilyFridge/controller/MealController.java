@@ -9,12 +9,9 @@ import com.metropolitan.FamilyFridge.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping ("/meals")
@@ -30,33 +27,12 @@ public class MealController {
 
     Meal meal = new Meal();
 
-    @GetMapping
+    @GetMapping()
     public String meals(Model model) {
         meal = new Meal();
         model.addAttribute("meals", mealService.getAllMeals());
         return "meals";
     }
-
-
-//    @GetMapping("/addIngredient/{id}")
-//    public  String addIngredient(@PathVariable("id") Long groceryId) {
-//
-//        Grocery grocery = groceryService.getById(groceryId);
-//        if (grocery == null) {
-//            return "error";
-//        }
-//
-//        MealIngredient ingredient = new MealIngredient();
-//        ingredient.setGrocery(grocery);
-//        ingredient.setQuantity(1);
-//       // ingredient.setMeal(meal);
-//
-//        List<MealIngredient> ingredients = new ArrayList<>();
-//        ingredients.add(ingredient);
-//
-////        meal.setMealIngredients(ingredients);
-//        return "redirect:/meals";
-//    }
 
     @GetMapping("/add")
     public String addMeal(Model model) {
@@ -74,15 +50,13 @@ public class MealController {
 
         MealIngredient mealIngredient = meal.getMealIngredients().get(ingredientIndex);
 
-        meal.getMealIngredients().remove(mealIngredient);
-
-        model.addAttribute("meal", meal);
-        model.addAttribute("groceries", groceryService.getAll());
-
-        if (meal.getId() != null){
-            mealService.addMeal(meal);
+        if (mealIngredient.getId() != null) {
             mealIngredientRepository.delete(mealIngredient);
         }
+
+        meal.getMealIngredients().remove(mealIngredient);
+        model.addAttribute("meal", meal);
+        model.addAttribute("groceries", groceryService.getAll());
         return "add_meal";
     }
 
@@ -111,8 +85,6 @@ public class MealController {
         mealIngredient.setQuantity(quantity);
         mealIngredient.setMeal(meal);
 
-        //mealIngredientRepository.save(mealIngredient);
-
         if (meal.getMealIngredients() == null) {
             meal.setMealIngredients(new ArrayList<>());
         }
@@ -128,7 +100,7 @@ public class MealController {
     public String addNewMeal(@RequestParam("name") String name,Model model) {
 
         meal.setName(name);
-        mealService.addMeal(meal);
+        mealService.save(meal);
 
         for (MealIngredient mealIngredient : meal.getMealIngredients()) {
             mealIngredient.setMeal(meal);

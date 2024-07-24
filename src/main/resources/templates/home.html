@@ -47,8 +47,11 @@
                     <button class="btn btn-warning btn-sm">Izmeni</button>
                 </div>
             </div>
-
-            <button class="btn btn-primary">Dodaj obrok</button>
+            <form th:action="@{/mealPlan/add}" method="post" class="d-inline">
+                <input type="hidden" name="date" th:value="${date}">
+                <input type="hidden" name="timeOfDayId" th:value="${1}">
+                <button type="submit" class="btn btn-danger btn-sm mt-2">Dodaj obrok</button>
+            </form>
         </div>
 
         <div class="container mt-4">
