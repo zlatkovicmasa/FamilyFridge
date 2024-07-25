@@ -2,8 +2,9 @@ package com.metropolitan.FamilyFridge.controller;
 
 import com.metropolitan.FamilyFridge.entity.Grocery;
 import com.metropolitan.FamilyFridge.entity.Inventory;
-import com.metropolitan.FamilyFridge.repository.GroceryRepository;
 import com.metropolitan.FamilyFridge.repository.InventoryRepository;
+import com.metropolitan.FamilyFridge.service.GroceryService;
+import com.metropolitan.FamilyFridge.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,35 +17,48 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private InventoryRepository inventoryRepository;
+    private InventoryService inventoryService;
 
     @Autowired
-    private GroceryRepository groceryRepository;
+    private GroceryService groceryService;
 
     @GetMapping("")
     public String inventory(Model model) {
-        List<Inventory> inventoryList = inventoryRepository.findAll();
-        model.addAttribute("inventory", inventoryRepository.findAll());
+        List<Inventory> inventoryList = inventoryService.getAll();
+        model.addAttribute("inventory", inventoryList);
+        model.addAttribute("groceries", groceryService.getAll());
         return "inventory";
     }
 
-    @GetMapping("/add")
-    public String addInventory(Model model) {
-        model.addAttribute("inventory", new Inventory());
-        List<Grocery> groceryList = groceryRepository.findAll();
-        model.addAttribute("groceries", groceryList);
-        return "add_inventory";
-    }
-
     @PostMapping("/add")
-    public String addInventory(@ModelAttribute("inventory") Inventory inventory) {
-        inventoryRepository.save(inventory);
+    public String add(@RequestParam("grocery") Long groceryId, @RequestParam("quantity") double quantity, Model model) {
+
+        Grocery grocery = groceryService.getById(groceryId);
+        if (grocery == null) {
+            return "error";
+        }
+
+        Inventory existingInventory = inventoryService.getByGrocery(grocery);
+
+        if (existingInventory != null) {
+            existingInventory.setQuantity(existingInventory.getQuantity() + quantity);
+            inventoryService.save(existingInventory);
+        } else {
+            // Ako ne postoji, dodaj novi unos
+            Inventory inventory = new Inventory();
+            inventory.setGrocery(grocery);
+            inventory.setQuantity(quantity);
+            inventoryService.save(inventory);
+        }
+
         return "redirect:/inventory";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateInventory(@PathVariable("id") Long id, @RequestParam("quantityChange") Model model) {
-        //inventoryRepository.
-        return "redirect:/inventory/";
+    @PostMapping("/remove")
+    public String remove(@RequestParam("groceryId") Long groceryId, Model model) {
+
+        inventoryService.deleteById(groceryId);
+
+        return "redirect:/inventory";
     }
 }

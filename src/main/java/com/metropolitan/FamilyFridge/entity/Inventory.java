@@ -3,7 +3,7 @@ package com.metropolitan.FamilyFridge.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "inventory", schema = "family_frigde")
+@Table(name = "inventory", schema = "family_fridge")
 public class Inventory {
 
     @Id
@@ -13,12 +13,13 @@ public class Inventory {
     @ManyToOne
     @JoinColumn(name = "grocery_id")
     private Grocery grocery;
-    private int quantity;
+
+    private double quantity;
 
     public Long getId() {return this.id;}
     public void setId(Long id) { this.id = id;}
     public Grocery getGrocery() {return this.grocery;}
     public void setGrocery(Grocery grocery) {this.grocery = grocery;}
-    public int getQuantity() {return this.quantity;}
-    public void setQuantity(int quantity) {this.quantity = quantity;}
+    public double getQuantity() {return this.quantity;}
+    public void setQuantity(double quantity) {this.quantity = quantity;}
 }

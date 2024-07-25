@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista za kupovinu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <a th:href="@{/home}" class="btn btn-secondary mb-4">
+        <i class="fas fa-calendar-alt"></i> Nazad na početnu stranicu
+    </a>
+
+    <h1 class="mb-4">Lista za kupovinu</h1>
+
+    <form th:action="@{/shoppingList}" method="get" class="mb-4">
+        <div class="form-row">
+            <div class="col-md-5 mb-3">
+                <label for="startDate">Datum od:</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" th:value="${startDate}" required>
+            </div>
+            <div class="col-md-5 mb-3">
+                <label for="endDate">Datum do:</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" th:value="${endDate}" required>
+            </div>
+            <div class="col-md-2 mb-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Generiši listu</button>
+            </div>
+        </div>
+    </form>
+
+    <div th:if="${#lists.isEmpty(shoppingList)}" class="alert alert-info">
+        Sve potrebne namirnice su već u inventaru.
+    </div>
+    <ul th:if="${!#lists.isEmpty(shoppingList)}" class="list-group">
+        <li th:each="entry : ${shoppingList}">
+            <span th:text="${entry.value}">Količina</span>
+            <span th:text="${entry.key.name}">Namirnica</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

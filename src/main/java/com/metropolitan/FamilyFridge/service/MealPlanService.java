@@ -18,19 +18,21 @@ public class MealPlanService {
     @Autowired
     private MealPlanRepository mealPlanRepository;
 
-    public Map<Date, List<MealPlan>> getMealPlansByDate(Date startDate, Date endDate) {
-        List<MealPlan> mealPlans = mealPlanRepository.findMealPlanBetweenDates(startDate, endDate);
-        return mealPlans.stream().collect(Collectors.groupingBy(MealPlan::getDate));
+    public List<MealPlan> getMealPlansBetweenDates(Date startDate, Date endDate) {
+        return mealPlanRepository.findMealPlanBetweenDates(startDate, endDate);
     }
 
     public Map<String, List<MealPlan>> getMealPlansByDate(Date date) {
-        List<MealPlan> mP = mealPlanRepository.findAll();
         List<MealPlan> mealPlans = mealPlanRepository.findAllByDate(date);
         return mealPlans.stream().collect(Collectors.groupingBy(mealPlan -> mealPlan.getTimeOfDay().getName()));
     }
 
     public void save(MealPlan mealPlan) {
         mealPlanRepository.save(mealPlan);
+    }
+
+    public List<MealPlan> getAll(){
+        return mealPlanRepository.findAll();
     }
 
 }
