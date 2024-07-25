@@ -50,9 +50,9 @@ public class MealController {
 
         MealIngredient mealIngredient = meal.getMealIngredients().get(ingredientIndex);
 
-        if (mealIngredient.getId() != null) {
-            mealIngredientRepository.delete(mealIngredient);
-        }
+//        if (mealIngredient.getId() != null) {
+//            mealIngredientRepository.delete(mealIngredient);
+//        }
 
         meal.getMealIngredients().remove(mealIngredient);
         model.addAttribute("meal", meal);
@@ -73,7 +73,7 @@ public class MealController {
     }
 
     @PostMapping("/addIngredient")
-    public String addMeal(@RequestParam("grocery") Long groceryId, @RequestParam("quantity") Double quantity, Model model) {
+    public String addIngredient(@RequestParam("grocery") Long groceryId, @RequestParam("quantity") Double quantity, Model model) {
 
         Grocery grocery = groceryService.getById(groceryId);
         if (grocery == null) {
@@ -103,8 +103,10 @@ public class MealController {
         mealService.save(meal);
 
         for (MealIngredient mealIngredient : meal.getMealIngredients()) {
-            mealIngredient.setMeal(meal);
-            mealIngredientRepository.save(mealIngredient);
+            if (mealIngredient.getMeal() == null) {
+                mealIngredient.setMeal(meal);
+                mealIngredientRepository.save(mealIngredient);
+            }
         }
 
         meal = new Meal();
