@@ -4,7 +4,6 @@ import com.metropolitan.FamilyFridge.entity.Grocery;
 import com.metropolitan.FamilyFridge.entity.Inventory;
 import com.metropolitan.FamilyFridge.entity.MealIngredient;
 import com.metropolitan.FamilyFridge.entity.MealPlan;
-import com.metropolitan.FamilyFridge.repository.MealPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,11 @@
 package com.metropolitan.FamilyFridge.repository;
 
-import com.metropolitan.FamilyFridge.entity.User;
+import com.metropolitan.FamilyFridge.entity.FamilyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<FamilyUser, Long> {
+
+    Optional<FamilyUser> findByEmail(String email);
 }

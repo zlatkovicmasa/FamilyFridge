@@ -1,10 +1,8 @@
 package com.metropolitan.FamilyFridge.service;
 
-import com.metropolitan.FamilyFridge.entity.Meal;
 import com.metropolitan.FamilyFridge.entity.MealPlan;
 import com.metropolitan.FamilyFridge.repository.MealPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -30,9 +28,4 @@ public class MealPlanService {
     public void save(MealPlan mealPlan) {
         mealPlanRepository.save(mealPlan);
     }
-
-    public List<MealPlan> getAll(){
-        return mealPlanRepository.findAll();
-    }
-
 }

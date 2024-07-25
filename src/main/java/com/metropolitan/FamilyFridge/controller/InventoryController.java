@@ -2,7 +2,6 @@ package com.metropolitan.FamilyFridge.controller;
 
 import com.metropolitan.FamilyFridge.entity.Grocery;
 import com.metropolitan.FamilyFridge.entity.Inventory;
-import com.metropolitan.FamilyFridge.repository.InventoryRepository;
 import com.metropolitan.FamilyFridge.service.GroceryService;
 import com.metropolitan.FamilyFridge.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class InventoryController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam("grocery") Long groceryId, @RequestParam("quantity") double quantity, Model model) {
+    public String add(@RequestParam("grocery") Long groceryId, @RequestParam("quantity") double quantity) {
 
         Grocery grocery = groceryService.getById(groceryId);
         if (grocery == null) {
@@ -55,7 +54,7 @@ public class InventoryController {
     }
 
     @PostMapping("/remove")
-    public String remove(@RequestParam("groceryId") Long groceryId, Model model) {
+    public String remove(@RequestParam("groceryId") Long groceryId) {
 
         inventoryService.deleteById(groceryId);
 
