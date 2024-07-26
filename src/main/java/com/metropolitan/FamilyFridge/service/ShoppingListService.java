@@ -25,7 +25,7 @@ public class ShoppingListService {
 
         Map<Grocery, Double> shoppingList = new HashMap<>();
 
-        List<MealPlan> mealPlans = mealPlanService.getMealPlansBetweenDates(startDate, endDate);
+        List<MealPlan> mealPlans = mealPlanService.getMealPlansBetweenDates(startDate, endDate, true);
 
         Map<Grocery, Double> neededGroceries = new HashMap<>();
 

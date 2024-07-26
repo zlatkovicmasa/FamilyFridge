@@ -83,7 +83,26 @@ public class MealPlanController {
         mealPlan.setTimeOfDay(timeOfDayRepository.findById(timeOfDayId).orElse(null));
         mealPlan.setMeal(meal);
         mealPlan.setDate(date);
+        mealPlan.setAccepted(false);
         mealPlanService.save(mealPlan);
+        return "redirect:/home";
+    }
+
+    @PostMapping("mealPlan/accept")
+    public String acceptMealPlan(@RequestParam("mealPlanId") Long mealPlanId, Model model) {
+        MealPlan mealPlan = mealPlanService.getMealPlanById(mealPlanId);
+        mealPlan.setAccepted(true);
+        mealPlanService.save(mealPlan);
+
+        return "redirect:/home";
+    }
+
+    @PostMapping("mealPlan/reject")
+    public String rejectMealPlan(@RequestParam("mealPlanId") Long mealPlanId, Model model) {
+        MealPlan mealPlan = mealPlanService.getMealPlanById(mealPlanId);
+        mealPlan.setAccepted(false);
+        mealPlanService.save(mealPlan);
+
         return "redirect:/home";
     }
 }

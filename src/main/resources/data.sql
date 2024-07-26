@@ -262,9 +262,12 @@ CREATE TABLE IF NOT EXISTS family_fridge.meal_plans(
                                                 date DATE NOT NULL,
                                                 time_of_day_id INT NOT NULL,
                                                 meal_id INT NOT NULL,
+                                                suggested_by INT NOT NULL,
+                                                accepted BOOLEAN DEFAULT FALSE,
                                                 CONSTRAINT pk_meal_plans PRIMARY KEY (id),
                                                 CONSTRAINT fk_meal_plans_time_of_day FOREIGN KEY (time_of_day_id) REFERENCES family_fridge.time_of_day (id),
-                                                CONSTRAINT fk_meal_plans_meal_id FOREIGN KEY (meal_id) REFERENCES family_fridge.meals (id)
+                                                CONSTRAINT fk_meal_plans_meal_id FOREIGN KEY (meal_id) REFERENCES family_fridge.meals (id),
+                                                CONSTRAINT fk_meal_plans_suggested_by FOREIGN KEY (suggested_by) REFERENCES family_fridge.users (id)
 );
 
 -- DROP TABLE IF EXISTS family_fridge.inventory;

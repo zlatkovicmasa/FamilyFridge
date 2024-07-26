@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,9 +57,23 @@
 
             <div th:if="${mealPlans.containsKey('doručak') && !mealPlans['doručak'].isEmpty()}"
                  class="mb-4">
-                <div th:each="mealPlan : ${mealPlans['doručak']}" class="d-flex justify-content-between align-items-center mb-2">
-                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
-                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                <div th:each="mealPlan : ${mealPlans['doručak']}" class="d-flex justify-content-between align-items-center mb-2" th:classappend="${mealPlan.accepted} ? 'bg-success text-white' : ''">
+                    <div>
+                        <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                        <small class="text-muted" th:text="'Predložio: ' + ${mealPlan.suggestedBy.email}">Predložio: Korisnik</small>
+                    </div>
+
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <form th:if="${not mealPlan.accepted}" th:action="@{/mealPlan/accept}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-success btn-sm">Prihvati</button>
+                        </form>
+
+                        <form th:if="${mealPlan.accepted}" th:action="@{/mealPlan/reject}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-warning btn-sm">Odbaci</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <form th:action="@{/mealPlan/add}" method="post" class="d-inline">
@@ -77,9 +91,23 @@
 
             <div th:if="${mealPlans.containsKey('ručak') && !mealPlans['ručak'].isEmpty()}"
                  class="mb-4">
-                <div th:each="mealPlan : ${mealPlans['ručak']}" class="d-flex justify-content-between align-items-center mb-2">
-                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
-                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                <div th:each="mealPlan : ${mealPlans['ručak']}" class="d-flex justify-content-between align-items-center mb-2" th:classappend="${mealPlan.accepted} ? 'bg-success text-white' : ''">
+                    <div>
+                        <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                        <small class="text-muted" th:text="'Predložio: ' + ${mealPlan.suggestedBy.email}">Predložio: Korisnik</small>
+                    </div>
+
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <form th:if="${not mealPlan.accepted}" th:action="@{/mealPlan/accept}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-success btn-sm">Prihvati</button>
+                        </form>
+
+                        <form th:if="${mealPlan.accepted}" th:action="@{/mealPlan/reject}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-warning btn-sm">Odbaci</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -98,9 +126,23 @@
 
             <div th:if="${mealPlans.containsKey('užina') && !mealPlans['užina'].isEmpty()}"
                  class="mb-4">
-                <div th:each="mealPlan : ${mealPlans['užina']}" class="d-flex justify-content-between align-items-center mb-2">
-                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
-                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                <div th:each="mealPlan : ${mealPlans['užina']}" class="d-flex justify-content-between align-items-center mb-2" th:classappend="${mealPlan.accepted} ? 'bg-success text-white' : ''">
+                    <div>
+                        <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                        <small class="text-muted" th:text="'Predložio: ' + ${mealPlan.suggestedBy.email}">Predložio: Korisnik</small>
+                    </div>
+
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <form th:if="${not mealPlan.accepted}" th:action="@{/mealPlan/accept}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-success btn-sm">Prihvati</button>
+                        </form>
+
+                        <form th:if="${mealPlan.accepted}" th:action="@{/mealPlan/reject}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-warning btn-sm">Odbaci</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -119,9 +161,23 @@
 
             <div th:if="${mealPlans.containsKey('večera') && !mealPlans['večera'].isEmpty()}"
                  class="mb-4">
-                <div th:each="mealPlan : ${mealPlans['večera']}" class="d-flex justify-content-between align-items-center mb-2">
-                    <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
-                    <button class="btn btn-warning btn-sm">Izmeni</button>
+                <div th:each="mealPlan : ${mealPlans['večera']}" class="d-flex justify-content-between align-items-center mb-2" th:classappend="${mealPlan.accepted} ? 'bg-success text-white' : ''">
+                    <div>
+                        <p class="mb-0" th:text="${mealPlan.meal.name}">Obrok</p>
+                        <small class="text-muted" th:text="'Predložio: ' + ${mealPlan.suggestedBy.email}">Predložio: Korisnik</small>
+                    </div>
+
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <form th:if="${not mealPlan.accepted}" th:action="@{/mealPlan/accept}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-success btn-sm">Prihvati</button>
+                        </form>
+
+                        <form th:if="${mealPlan.accepted}" th:action="@{/mealPlan/reject}" method="post" class="d-inline">
+                            <input type="hidden" name="mealPlanId" th:value="${mealPlan.id}">
+                            <button type="submit" class="btn btn-warning btn-sm">Odbaci</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
