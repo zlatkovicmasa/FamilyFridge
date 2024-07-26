@@ -10,7 +10,7 @@
     <h1 class="mb-4">Prijava</h1>
     <form th:action="@{/login}" method="post">
         <div class="form-group">
-            <label for="username">Korisničko ime:</label>
+            <label for="username">Email:</label>
             <input type="text" id="username" name="username" class="form-control" required>
         </div>
         <div class="form-group">
@@ -19,6 +19,9 @@
         </div>
         <button type="submit" class="btn btn-primary">Prijavi se</button>
     </form>
+    <a th:href="@{/register}" class="btn btn-outline-secondary mt-4">
+        <i class="fas fa-sign-in-alt"></i> Novi nalog
+    </a>
 </div>
 </body>
 </html>

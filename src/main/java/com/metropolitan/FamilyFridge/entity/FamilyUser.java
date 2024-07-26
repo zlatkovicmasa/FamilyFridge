@@ -33,5 +33,5 @@ public class FamilyUser {
     public String getRole() {return role;}
     public void setRole(String role) {this.role = role;}
 
-    public Boolean isAdmin() {return role.equals("admin");}
+    public Boolean isAdmin() {return role.equals("ROLE_ADMIN");}
 }

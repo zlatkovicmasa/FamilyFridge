@@ -8,17 +8,24 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">Registracija</h1>
-    <form th:action="@{/register}" method="post">
+    <form th:action="@{/register}" th:object="${registrationCommand}" method="post">
         <div class="form-group">
-            <label for="username">Korisničko ime:</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" class="form-control" th:field="*{username}" required>
         </div>
         <div class="form-group">
             <label for="password">Lozinka:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+            <input type="password" id="password" name="password" class="form-control" th:field="*{password}" required>
+        </div>
+        <div class="form-group">
+            <label for="repeatpassword">Ponovi Lozinku:</label>
+            <input type="password" id="repeatpassword" name="repeatpassword" class="form-control" th:field="*{repeatPassword}" required>
         </div>
         <button type="submit" class="btn btn-primary">Registruj se</button>
     </form>
+    <a th:href="@{/login}" class="btn btn-outline-secondary mt-4">
+        <i class="fas fa-sign-in-alt"></i> Prijavi se
+    </a>
 </div>
 </body>
 </html>
