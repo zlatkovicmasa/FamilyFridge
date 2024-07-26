@@ -7,16 +7,15 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 public class RegistrationCommand {
-    @NotBlank(message = "Username can't be blank!")
-    @Size(min = 3, message = "Username must be at least 3 characters long!")
+    @NotBlank(message = "Email ne sme da bude prazan!")
     @Pattern(
             regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
-            message = "Username must be a valid email address!"
+            message = "Email mora da bude validna adresa!"
     )
     private String username;
 
-    @NotBlank(message = "Password can't be blank!")
-    @Size(min = 8, message = "Password must be at least 8 characters long!")
+    @NotBlank(message = "Lozinka ne sme da bude prazna!")
+    @Size(min = 8, message = "Lozinka mora da ima bar 8 karaktera!")
     private String password;
 
     private String repeatPassword;

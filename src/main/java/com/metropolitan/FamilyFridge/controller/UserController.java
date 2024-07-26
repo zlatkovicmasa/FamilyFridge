@@ -20,12 +20,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.View;
 
 @Controller
 public class UserController {
 
     @Autowired
     private FamilyUserService familyUserService;
+    @Autowired
+    private View error;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -41,6 +44,7 @@ public class UserController {
     public String register(Model model, @Valid @ModelAttribute RegistrationCommand registrationCommand,
                            BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getAllErrors().getFirst().getDefaultMessage());
             return "register";
         }
 

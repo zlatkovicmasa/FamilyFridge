@@ -22,6 +22,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/home/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/family/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/meals/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/inventory/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/mealPlan/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/shoppingList/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/login", "/register").permitAll()
                         .requestMatchers("/", "/*.css", "/*.png", "/*.jpg", "/*.gif", "/favicon.ico").permitAll()
                         .anyRequest().denyAll()

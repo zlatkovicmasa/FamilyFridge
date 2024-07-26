@@ -8,6 +8,10 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">Registracija</h1>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
     <form th:action="@{/register}" th:object="${registrationCommand}" method="post">
         <div class="form-group">
             <label for="email">E-mail:</label>

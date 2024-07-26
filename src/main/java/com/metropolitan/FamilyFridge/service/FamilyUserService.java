@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -20,6 +21,15 @@ public class FamilyUserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    public List<FamilyUser> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void register(FamilyUser familyUser) {
+        familyUser.setPassword(passwordEncoder.encode(familyUser.getPassword()));
+        userRepository.save(familyUser);
+    }
 
     public UserDetails register(RegistrationCommand command) throws RegistrationFailedException {
         String username = command.getUsername();

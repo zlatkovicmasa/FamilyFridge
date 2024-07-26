@@ -8,6 +8,9 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4">Prijava</h1>
+    <div th:if="${param.error}" class="alert alert-error">
+        Nevalidni podaci
+    </div>
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username">Email:</label>

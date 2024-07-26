@@ -29,6 +29,13 @@
                         <i class="fas fa-shopping-cart"></i> Lista za kupovinu
                     </a>
                 </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post" class="form-inline">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="fas fa-sign-out-alt"></i> Odjavi se
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>
