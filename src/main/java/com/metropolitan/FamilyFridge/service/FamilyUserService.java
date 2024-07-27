@@ -39,10 +39,10 @@ public class FamilyUserService {
         boolean userExists = userRepository.findByEmail(username).isPresent();
 
         if (!passwordsMatch) {
-            throw new RegistrationFailedException("Passwords don't match!");
+            throw new RegistrationFailedException("Lozinke se ne podudaraju!");
         }
         else if (userExists) {
-            throw new RegistrationFailedException("User already exists!");
+            throw new RegistrationFailedException("Korisnik već postoji!");
         }
         else {
             FamilyUser newUser = new FamilyUser(username, passwordEncoder.encode(password), "ROLE_ADMIN");

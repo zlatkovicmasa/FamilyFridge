@@ -23,13 +23,13 @@ import java.util.Map;
 public class MealPlanController {
 
     @Autowired
-    private MealPlanService mealPlanService;
+    MealPlanService mealPlanService;
 
     @Autowired
-    private MealService mealService;
+    MealService mealService;
 
     @Autowired
-    private TimeOfDayRepository timeOfDayRepository;
+    TimeOfDayRepository timeOfDayRepository;
 
     @GetMapping("/home")
     public String home(@RequestParam(name = "date", required = false) String dateString, Model model) {

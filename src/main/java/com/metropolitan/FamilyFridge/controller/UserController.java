@@ -26,9 +26,10 @@ import org.springframework.web.servlet.View;
 public class UserController {
 
     @Autowired
-    private FamilyUserService familyUserService;
-    @Autowired
-    private View error;
+    FamilyUserService familyUserService;
+
+//    @Autowired
+//    View error;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {

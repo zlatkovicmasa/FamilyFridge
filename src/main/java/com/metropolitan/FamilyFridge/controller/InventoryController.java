@@ -16,10 +16,10 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private InventoryService inventoryService;
+    InventoryService inventoryService;
 
     @Autowired
-    private GroceryService groceryService;
+    GroceryService groceryService;
 
     @GetMapping("")
     public String inventory(Model model) {

@@ -18,12 +18,13 @@ import java.util.ArrayList;
 public class MealController {
 
     @Autowired
-    private MealService mealService;
+    MealService mealService;
 
     @Autowired
-    private GroceryService groceryService;
+    GroceryService groceryService;
+
     @Autowired
-    private MealIngredientRepository mealIngredientRepository;
+    MealIngredientRepository mealIngredientRepository;
 
     Meal meal = new Meal();
 
@@ -49,10 +50,6 @@ public class MealController {
     public String removeIngredient(@RequestParam("ingredientIndex") int ingredientIndex, Model model) {
 
         MealIngredient mealIngredient = meal.getMealIngredients().get(ingredientIndex);
-
-//        if (mealIngredient.getId() != null) {
-//            mealIngredientRepository.delete(mealIngredient);
-//        }
 
         meal.getMealIngredients().remove(mealIngredient);
         model.addAttribute("meal", meal);
