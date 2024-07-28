@@ -28,6 +28,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/mealPlan/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/shoppingList/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/login", "/register").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers(("h2-console/login.do")).permitAll()
                         .requestMatchers("/", "/*.css", "/*.png", "/*.jpg", "/*.gif", "/favicon.ico").permitAll()
                         .anyRequest().denyAll()
 
